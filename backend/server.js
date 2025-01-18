@@ -118,63 +118,56 @@ async function generateSpiritualInsights(userData) {
         console.log("Attempting to generate insights for:", userData.name);
         
         const prompt = `
-        As a Vedic astrology expert, provide a comprehensive analysis for:
+        As a Vedic astrology expert, analyze the following birth details and provide a comprehensive, practical reading in exactly three sections:
         Name: ${userData.name}
         Date of Birth: ${userData.dateOfBirth}
         Time: ${userData.time}
         Location: ${userData.city}, ${userData.state}
 
-        Provide three detailed sections, each with at least 300 words:
+        Please provide detailed analysis in exactly these three sections, with at least 100 words per section:
 
-        Section 1: Kundali & Birth Chart Analysis
-        - Detailed analysis of all 12 houses and their significance
-        - Major planetary positions and their impact on life
-        - Key planetary combinations (yogas) present in the chart
-        - Dasha periods and their effects
-        - Career prospects and professional path
-        - Relationship dynamics and marriage insights
-        - Financial outlook and wealth potential
-        - Educational and intellectual capabilities
-        - Family life and domestic harmony
+        Section 1: Kundali & Horoscope Generation
+        Analyze the 12 houses of the birth chart and provide specific insights about:
+        - Career prospects and professional growth based on the 10th house
+        - Relationship dynamics from the 7th and 5th houses
+        - Financial outlook from the 2nd and 11th houses
+        - Educational and intellectual capabilities from the 4th and 5th houses
+        - Family life and domestic harmony from the 4th house
+        Focus on practical implications and timing of opportunities. Include specific predictions about career paths, relationships, and personal growth.
 
-        Section 2: Spiritual and Gemstone Recommendations
-        - Specific gemstones for each ruling planet
-        - Detailed explanation of how each gemstone will benefit
-        - Mantras with their specific benefits and chanting methods
-        - Daily rituals and their spiritual significance
-        - Auspicious timings for important activities
-        - Dietary recommendations based on planetary positions
-        - Fasting guidelines and their benefits
-        - Color therapy recommendations
-        - Specific temples or places of worship to visit
+        Section 2: AI Recommendations
+        Provide specific, actionable recommendations about:
+        - Gemstones that align with the birth chart's planetary positions
+        - Detailed pooja and ritual recommendations with their specific benefits
+        - Timing for important activities and decisions
+        - Specific do's and don'ts based on planetary positions
+        - Dietary and lifestyle recommendations
+        Include practical implementation steps and expected benefits for each recommendation.
 
-        Section 3: Personal Development and Daily Practices
-        - Detailed meditation techniques aligned with birth chart
-        - Specific yoga asanas with their benefits
-        - Breathing exercises (pranayama) suitable for your constitution
-        - Time management based on planetary periods
-        - Career development strategies
-        - Relationship improvement practices
-        - Health maintenance routines
-        - Spiritual growth exercises
-        - Methods to enhance positive planetary influences
-        - Techniques to mitigate challenging planetary aspects
+        Section 3: Spiritual Content Delivery
+        Detail personalized spiritual practices including:
+        - Meditation techniques aligned with planetary positions
+        - Physical exercises and yoga based on birth chart elements
+        - Sleep optimization practices based on moon sign
+        - Breathing exercises for energy balance
+        - Daily routines for spiritual growth
+        Focus on practical, implementable advice that creates harmony in daily life.
 
-        Format each section clearly and provide practical, implementable advice. Focus on positive aspects while addressing challenges constructively.
+        Important: Write in a professional, authoritative tone without any disclaimers. Provide specific, practical advice that can be implemented immediately. Make direct connections between astrological aspects and real-life applications.
         `;
 
         const response = await groqApi.post('/chat/completions', {
             model: "mixtral-8x7b-32768",
             messages: [{ 
                 role: "system", 
-                content: "You are an expert Vedic astrologer with deep knowledge of Hindu astrology, gemstones, and spiritual practices. Provide detailed, authoritative insights without disclaimers or qualifications."
+                content: "You are an expert Vedic astrologer with decades of experience. Provide authoritative, practical insights without any disclaimers or qualifications. Focus on specific, actionable advice based on authentic Vedic astrology principles."
             },
             { 
                 role: "user", 
                 content: prompt 
             }],
             temperature: 0.7,
-            max_tokens: 4096  // Increased for longer responses
+            max_tokens: 4096
         });
 
         console.log("GROQ API Response received");
